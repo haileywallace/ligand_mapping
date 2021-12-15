@@ -52,33 +52,33 @@ $line" || {
 done < tmp_LG.csv
 
 # Reading in corresponding CG atoms
-conh2=$(echo "combs_groups/conh2_ASN.txt" "combs_groups/conh2_GLN.txt")
-bbcco=$(echo "combs_groups/bbcco_GLY.txt" "combs_groups/bbcco_ALA.txt" "combs_groups/bbcco_PRO.txt")
-ph1=$(echo "combs_groups/ph_PHE_1.txt") # 6 rotations
-ph2=$(echo "combs_groups/ph_PHE_2.txt")
-ph3=$(echo "combs_groups/ph_PHE_3.txt")
-ph4=$(echo "combs_groups/ph_PHE_4.txt")
-ph5=$(echo "combs_groups/ph_PHE_5.txt")
-ph6=$(echo "combs_groups/ph_PHE_6.txt")
-bb_cnh=$(echo "combs_groups/bb_cnh_GLY.txt" "combs_groups/bb_cnh_LYS.txt" "combs_groups/bb_cnh_ALA.txt")
-ccn=$(echo "combs_groups/ccn_LYS.txt")
-ccoh=$(echo "combs_groups/ccoh_SER.txt" "combs_groups/ccoh_THR.txt")
-coh=$(echo "combs_groups/coh_SER.txt" "combs_groups/coh_THR.txt")
-coo=$(echo "combs_groups/coo_ASP.txt" "combs_groups/coo_GLU.txt")
-csc=$(echo "combs_groups/csc_MET.txt")
-csh=$(echo "combs_groups/csh_CYS.txt")
-gn=$(echo "combs_groups/gn_ARG.txt")
-hid=$(echo "combs_groups/hid_HIS.txt")
-hie=$(echo "combs_groups/hie_HIS.txt")
-hip=$(echo "combs_groups/hip_HIS.txt")
-indole=$(echo "combs_groups/indole_TRP.txt")
-phenol1=$(echo "combs_groups/phenol_TYR_1.txt")
-phenol2=$(echo "combs_groups/phenol_TYR_2.txt") # phenol numbering in opposite direction
-isopropyl1=$(echo "combs_groups/isopropyl_LEU_1.txt" "combs_groups/isopropyl_VAL_1.txt")
-isopropyl2=$(echo "combs_groups/isopropyl_LEU_2.txt" "combs_groups/isopropyl_VAL_2.txt")  # isopropyl numbering in opposite direction
-pro1=$(echo "combs_groups/pro_PRO_1.txt")
-pro2=$(echo "combs_groups/pro_PRO_2.txt") # proline numbering in opposite direction
-ch3=$(echo "combs_groups/ch3_ALA.txt" "combs_groups/ch3_ILE.txt")
+conh2=$(echo "ligand_mapping_CG_files/conh2_ASN.txt" "ligand_mapping_CG_files/conh2_GLN.txt")
+bbcco=$(echo "ligand_mapping_CG_files/bbcco_GLY.txt" "ligand_mapping_CG_files/bbcco_ALA.txt" "ligand_mapping_CG_files/bbcco_PRO.txt")
+ph1=$(echo "ligand_mapping_CG_files/ph_PHE_1.txt") # 6 rotations
+ph2=$(echo "ligand_mapping_CG_files/ph_PHE_2.txt")
+ph3=$(echo "ligand_mapping_CG_files/ph_PHE_3.txt")
+ph4=$(echo "ligand_mapping_CG_files/ph_PHE_4.txt")
+ph5=$(echo "ligand_mapping_CG_files/ph_PHE_5.txt")
+ph6=$(echo "ligand_mapping_CG_files/ph_PHE_6.txt")
+bb_cnh=$(echo "ligand_mapping_CG_files/bb_cnh_GLY.txt" "ligand_mapping_CG_files/bb_cnh_LYS.txt" "ligand_mapping_CG_files/bb_cnh_ALA.txt")
+ccn=$(echo "ligand_mapping_CG_files/ccn_LYS.txt")
+ccoh=$(echo "ligand_mapping_CG_files/ccoh_SER.txt" "ligand_mapping_CG_files/ccoh_THR.txt")
+coh=$(echo "ligand_mapping_CG_files/coh_SER.txt" "ligand_mapping_CG_files/coh_THR.txt")
+coo=$(echo "ligand_mapping_CG_files/coo_ASP.txt" "ligand_mapping_CG_files/coo_GLU.txt")
+csc=$(echo "ligand_mapping_CG_files/csc_MET.txt")
+csh=$(echo "ligand_mapping_CG_files/csh_CYS.txt")
+gn=$(echo "ligand_mapping_CG_files/gn_ARG.txt")
+hid=$(echo "ligand_mapping_CG_files/hid_HIS.txt")
+hie=$(echo "ligand_mapping_CG_files/hie_HIS.txt")
+hip=$(echo "ligand_mapping_CG_files/hip_HIS.txt")
+indole=$(echo "ligand_mapping_CG_files/indole_TRP.txt")
+phenol1=$(echo "ligand_mapping_CG_files/phenol_TYR_1.txt")
+phenol2=$(echo "ligand_mapping_CG_files/phenol_TYR_2.txt") # phenol numbering in opposite direction
+isopropyl1=$(echo "ligand_mapping_CG_files/isopropyl_LEU_1.txt" "ligand_mapping_CG_files/isopropyl_VAL_1.txt")
+isopropyl2=$(echo "ligand_mapping_CG_files/isopropyl_LEU_2.txt" "ligand_mapping_CG_files/isopropyl_VAL_2.txt")  # isopropyl numbering in opposite direction
+pro1=$(echo "ligand_mapping_CG_files/pro_PRO_1.txt")
+pro2=$(echo "ligand_mapping_CG_files/pro_PRO_2.txt") # proline numbering in opposite direction
+ch3=$(echo "ligand_mapping_CG_files/ch3_ALA.txt" "ligand_mapping_CG_files/ch3_ILE.txt")
 
 
 # Loop through the array and run the ligand support script for corresponding CG atoms
@@ -397,4 +397,4 @@ else
 fi
 
 # Removes the temporary files from this script that were created
-#rm tmp_LG*
+rm tmp_LG*

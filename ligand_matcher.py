@@ -37,7 +37,7 @@ if len(sys.argv)==1:
 *      __________________________________________       *
 *                     options:                          *
 *     --ligand, -l: input protonated                    *
-*                    PDB ligand (required)               *
+*                    PDB ligand (required)              *
 *     --ouput, -o: output name for ligand.txt file      *
 *                   "ligand.txt" if not specified;      *
 *                    "none" for no ligand.txt file      *
@@ -69,7 +69,7 @@ elif args.coords == None:
         # Create a new directory because it does not exist
         if not isExist:
             os.mkdir(PATH2)
-            os.rename(PATH, '/old_files/ligand_CG_coords.txt')
+            os.rename(PATH, scriptdir + '/old_files/ligand_CG_coords.txt')
 else:
     print('Input ligand:', args.ligand, '\n'"Output coordinate file:", args.coords)
 
@@ -162,7 +162,7 @@ for combs_groups in func_groups:
 # If -i is specified
 if args.image:
     # Image options
-    image = scriptdir + "/" + args.image
+    image = args.image
     IPythonConsole.drawOptions.addAtomIndices = True
     IPythonConsole.molSize = 300,300
 
@@ -208,29 +208,35 @@ elif args.output =="none":
 
 elif args.coords == None:
     if args.output == None:
-        process = subprocess.run(['./ligand_support.sh','-l',input,'-i','ligand_CG_coords.txt'])
+        process = subprocess.run(['bash','./ligand_mapping_CG_files/ligand_support.sh','-l',input,'-i','ligand_CG_coords.txt'])
         elapsed_time_secs = time.time() - start_time
         msg = "Finished making ligand.txt in %s seconds" % timedelta(seconds=round(elapsed_time_secs))
         print(msg)
     else:
-        process = subprocess.run(['./ligand_support.sh','-l',input,'-i','ligand_CG_coords.txt','-o',args.output])
+        process = subprocess.run(['bash','./ligand_mapping_CG_files/ligand_support.sh','-l',input,'-i','ligand_CG_coords.txt','-o',args.output])
         elapsed_time_secs = time.time() - start_time
         msg = "%s seconds" % timedelta(seconds=round(elapsed_time_secs))
         print('Finished making', args.output, msg)
 
 else:
     if args.output == None:
-        process = subprocess.run(['./ligand_support.sh','-l',input,'-i',args.coords])
+        process = subprocess.run(['bash','./ligand_mapping_CG_files/ligand_support.sh','-l',input,'-i',args.coords])
         elapsed_time_secs = time.time() - start_time
         msg = "Finished making ___ in %s seconds" % timedelta(seconds=round(elapsed_time_secs))
         print(msg)
     else:
-        process = subprocess.run(['./ligand_support.sh','-l',input,'-i',args.coords,'-o',args.output])
+        process = subprocess.run(['bash','./ligand_mapping_CG_files/ligand_support.sh','-l',input,'-i',args.coords,'-o',args.output])
         elapsed_time_secs = time.time() - start_time
         msg = "%s seconds" % timedelta(seconds=round(elapsed_time_secs))
         print('Finished making', args.output, msg)
 
 
+if __name__ == "__main__":
+    print("ligand_matcher was ran directly")
+else:
+    print("Importing ligand_matcher...")
+
 ########################################
 # Read this if you need to edit the code to add more COMBS-groups!
+# Notations in progress...
 ########################################
