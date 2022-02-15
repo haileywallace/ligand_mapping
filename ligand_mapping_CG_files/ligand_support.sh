@@ -306,7 +306,9 @@ for combs_groups_array in "${arr2[@]}"; do
       z_coord=$(echo $CG_line | awk -F',' '{print $3}') # Z-coord from input coords file
 
       # If all three coordinates match your input PDB file, then print out the corresponding atom name
-      pdb_atom=$(grep -e $x_coord $l | grep -e $y_coord | grep -e $z_coord | awk -F' ' '{print $3}') # $2 for mol2, $3 for pdb
+      #if [ -z "$x_coord" ] || [ -z "$y_coord" ] || [ -z "$z_coord" ]; then
+        pdb_atom=$(grep -e $x_coord $l | grep -e $y_coord | awk -F' ' '{print $3}') # $2 for mol2, $3 for pdb
+        # took out the grep -e $z_coord 
 
       # Print out the other info that the script has already found --
       other_info=$(echo $CG_line | awk -F',' '{print $6,$5,$4}')
@@ -327,7 +329,7 @@ done > tmp_LG8.csv
 # This will be used to find the ligand coverage number.
 # The next line of code prints out all of the atoms that correspond to the group number.
 # After that, we will loop through them to see if there are 2+ atoms that match between groups.
-awk '{print $6,$2}' tmp_LG8.csv | sort | uniq | awk '{if(a!=$1) {a=$1; printf "\n%s%s",$0,FS} else {a=$1;$1="";printf $0 }} END {printf "\n"}' | sed '/^$/d' | sed 's/ /,/' > tmp_LG9.csv
+awk '{print $6,$2}' tmp_LG8.csv | sort | uniq | awk '{if(a!=$1) {a=$1; printf "\n%s%s",$0,FS} else {a=$1;$1="";printf $0 }} END {printf "\n"}' | sed '/^$/d' | sed 's/ /,/' | sed 's/ //' > tmp_LG9.csv
 
 # This starts with the large ligand groups first (the order from the python script)
 # It assigns the unique atoms groups from largest to smallest, and as it reads through
