@@ -37,7 +37,7 @@ if len(sys.argv)==1:
 *      __________________________________________       *
 *                     options:                          *
 *     --ligand, -l: input protonated                    *
-*                    MOL2 ligand (required)             *
+*                    PDB ligand (required)             *
 *     --ouput, -o: output name for ligand.txt file      *
 *                   "ligand.txt" if not specified;      *
 *                    "none" for no ligand.txt file      *
@@ -77,8 +77,8 @@ else:
 # Functional groups that COMBS recognizes
 ########################################
 conh2 = Chem.MolFromSmarts("[C,c]C(=O)N([H])")
-bb_cco = Chem.MolFromSmarts("[N,n,C,c][C,c;X3](=O)[!O]")
-ph = Chem.MolFromSmarts("[c;C]1[c;C][c;C][c;C][c;C][c;C]1")
+bb_cco = Chem.MolFromSmarts("[N,n,C,c][C,c](O[!H])[!O]")
+ph = Chem.MolFromSmarts("[c,C]1[c,C][c,C][c,C][c,C][c,C]1")
 bb_cnh = Chem.MolFromSmarts("[C,c][N][H]")
 ccn = Chem.MolFromSmarts("[c,C][C,c]N([H])([H])")
 ccoh = Chem.MolFromSmarts("[C,c][C,c]O[H]")
@@ -87,10 +87,10 @@ coo = Chem.MolFromSmarts("[C,c]C(=O)O")
 csc = Chem.MolFromSmarts("[c,C]([H])([H])SC([H])([H])[H]")
 csh = Chem.MolFromSmarts("[C,c]S[H]")
 gn = Chem.MolFromSmarts("[*][N,n]([H])[C,c](~N([H])[H])N([H])[H]")
-his = Chem.MolFromSmarts("c1cn([H])cn1")
-hip = Chem.MolFromSmarts("c1cn([H])cn1([H])")
+his = Chem.MolFromSmarts("[c,C]1[c,C][n,N]([H])[c,C][n,N]1")
+hip = Chem.MolFromSmarts("[c,C]1[c,C][n,N]([H])[c,C][n,N]1([H])")
 indole = Chem.MolFromSmarts("c21ccn(c1cccc2)[H]")
-phenol = Chem.MolFromSmarts("c1cccc(c1)O[H]")
+phenol = Chem.MolFromSmarts("[c,C]1[c,C][c,C][c,C][c,C][c,C]1O[H]")
 isopropyl = Chem.MolFromSmarts("C([H])([H])([H])[c,C]C([H])([H])[H]")
 pro = Chem.MolFromSmarts("[C,c]1([H])([H])[C,c]([H])([H])**[C,c]1([H])([H])")
 ch3 = Chem.MolFromSmarts("[*][C,c]C([H])([H])[H]")
@@ -105,8 +105,9 @@ func_groups = [indole, phenol, ph, hip, his, gn, isopropyl, pro, ch3, csc, csh, 
 input = scriptdir + '/' + args.ligand
 
 # Import mol2 ligand file
-file = Chem.MolFromMol2File(input, removeHs=False) # Preserve the original Hs
-#file = Chem.MolFromPDBFile(input, removeHs=False)
+#file = Chem.MolFromMol2File(input, removeHs=False) # Preserve the original Hs
+file = Chem.MolFromPDBFile(input, removeHs=False)
+
 
 # Make sure connection values at end of PDB/mol2 are correct
 
@@ -115,7 +116,7 @@ ligand = Chem.MolToSmarts(file)
 try:
   print("Ligand SMARTS pattern:", ligand)
 except NameError:
-  print("Mol2 is not defined")
+  print("PDB is not defined")
 
 ########################################
 # Find matching substructures, output to new outfile
@@ -127,6 +128,13 @@ def namestr(obj, namespace):
 # Iterate functional group SMARTS patterns through your ligand
 for combs_groups in func_groups:
     substruct = file.GetSubstructMatches(combs_groups)
+    if substruct:
+        for match in substruct:
+            match_atoms = []
+            for i in match:
+                n_i = file.GetAtomWithIdx(i).GetPDBResidueInfo().GetName()
+                match_atoms.append(n_i)
+            print(match_atoms)
 
     # assign new variable with old variable name, aka the functional group name
     pre_var= str(namestr(combs_groups, globals())).split("'")
@@ -135,22 +143,6 @@ for combs_groups in func_groups:
     # if -c "none", do not make text file
     if args.coords == "none":
         pass
-
-    # if no argument, make default: "ligand_CG_coords.txt"
-    #elif args.coords == None:
-    #    f = open(scriptdir + "/ligand_CG_coords.txt", "a")
-    #    for types in substruct:
-    #        coords = Chem.MolFragmentToCXSmiles(file,types)
-    #        print(var, types, coords, file=f)
-
-#        atom_names = []
-#        for i,j in substruct:
-#            n_i = file.GetAtomWithIdx(i).GetPDBResidueInfo().GetName()
-#            n_j = file.GetAtomWithIdx(j).GetPDBResidueInfo().GetName()
-#            atom_names.append((n_i,n_j))
-#            print(var, types, atom_names, file=f)
-
-#        f.close()
 
     elif args.coords == None:
         f = open(scriptdir + "/ligand_CG_coords.txt", "a")
