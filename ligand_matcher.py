@@ -11,7 +11,7 @@ start_time = time.time()
 
 # Import os, sys, etc... + rdkit!
 import sys, argparse, os, re, subprocess
-import pandas as pd
+#import pandas as pd
 from rdkit import Chem, RDConfig
 from rdkit.Chem import Draw, ChemicalFeatures, rdchem, rdMolDescriptors
 from rdkit.Chem.Draw import IPythonConsole, rdMolDraw2D
@@ -37,7 +37,7 @@ if len(sys.argv)==1:
 *      __________________________________________       *
 *                     options:                          *
 *     --ligand, -l: input protonated                    *
-*                    PDB ligand (required)              *
+*                    MOL2 ligand (required)             *
 *     --ouput, -o: output name for ligand.txt file      *
 *                   "ligand.txt" if not specified;      *
 *                    "none" for no ligand.txt file      *
@@ -78,16 +78,16 @@ else:
 ########################################
 conh2 = Chem.MolFromSmarts("[C,c]C(=O)N([H])")
 bb_cco = Chem.MolFromSmarts("[N,n,C,c][C,c;X3](=O)[!O]")
-ph = Chem.MolFromSmarts("c1ccccc1")
+ph = Chem.MolFromSmarts("[c;C]1[c;C][c;C][c;C][c;C][c;C]1")
 bb_cnh = Chem.MolFromSmarts("[C,c][N][H]")
 ccn = Chem.MolFromSmarts("[c,C][C,c]N([H])([H])")
-ccoh = Chem.MolFromSmarts("[C,c][CX4]O[H]")
+ccoh = Chem.MolFromSmarts("[C,c][C,c]O[H]")
 coh = Chem.MolFromSmarts("[C,c]O[H]")
 coo = Chem.MolFromSmarts("[C,c]C(=O)O")
 csc = Chem.MolFromSmarts("[c,C]([H])([H])SC([H])([H])[H]")
 csh = Chem.MolFromSmarts("[C,c]S[H]")
 gn = Chem.MolFromSmarts("[*][N,n]([H])[C,c](~N([H])[H])N([H])[H]")
-his = Chem.MolFromSmarts("c1cn([H])c[n;X2]1")
+his = Chem.MolFromSmarts("c1cn([H])cn1")
 hip = Chem.MolFromSmarts("c1cn([H])cn1([H])")
 indole = Chem.MolFromSmarts("c21ccn(c1cccc2)[H]")
 phenol = Chem.MolFromSmarts("c1cccc(c1)O[H]")
@@ -105,8 +105,10 @@ func_groups = [indole, phenol, ph, hip, his, gn, isopropyl, pro, ch3, csc, csh, 
 input = scriptdir + '/' + args.ligand
 
 # Import mol2 ligand file
-#file = Chem.MolFromMol2File(input, removeHs=False) # Preserve the original Hs
-file = Chem.MolFromPDBFile(input, removeHs=False)
+file = Chem.MolFromMol2File(input, removeHs=False) # Preserve the original Hs
+#file = Chem.MolFromPDBFile(input, removeHs=False)
+
+# Make sure connection values at end of PDB/mol2 are correct
 
 # SMARTS pattern of your input mol2
 ligand = Chem.MolToSmarts(file)
@@ -135,6 +137,21 @@ for combs_groups in func_groups:
         pass
 
     # if no argument, make default: "ligand_CG_coords.txt"
+    #elif args.coords == None:
+    #    f = open(scriptdir + "/ligand_CG_coords.txt", "a")
+    #    for types in substruct:
+    #        coords = Chem.MolFragmentToCXSmiles(file,types)
+    #        print(var, types, coords, file=f)
+
+#        atom_names = []
+#        for i,j in substruct:
+#            n_i = file.GetAtomWithIdx(i).GetPDBResidueInfo().GetName()
+#            n_j = file.GetAtomWithIdx(j).GetPDBResidueInfo().GetName()
+#            atom_names.append((n_i,n_j))
+#            print(var, types, atom_names, file=f)
+
+#        f.close()
+
     elif args.coords == None:
         f = open(scriptdir + "/ligand_CG_coords.txt", "a")
         for types in substruct:
@@ -236,6 +253,8 @@ if __name__ == "__main__":
 else:
     print("Importing ligand_matcher...")
 
+
+print("Make sure your atom connectivity is correct in your input PDB file!")
 ########################################
 # Read this if you need to edit the code to add more COMBS-groups!
 # Notations in progress...
