@@ -77,10 +77,10 @@ else:
 # Functional groups that COMBS recognizes
 ########################################
 conh2 = Chem.MolFromSmarts("[C,c]C(=O)N([H])")
-bb_cco = Chem.MolFromSmarts("[N,n,C,c][C,c](O[!H])[!O]")
+bb_cco = Chem.MolFromSmarts("[*][C,c;X3](O)") # to not include COO, use "[N,n,C,c][C,c](O[!H])[!O]"
 ph = Chem.MolFromSmarts("[c,C]1[c,C][c,C][c,C][c,C][c,C]1")
 bb_cnh = Chem.MolFromSmarts("[C,c][N][H]")
-ccn = Chem.MolFromSmarts("[c,C][C,c]N([H])([H])")
+ccn = Chem.MolFromSmarts("[c,C][C,c]N[H2]")
 ccoh = Chem.MolFromSmarts("[C,c][C,c]O[H]")
 coh = Chem.MolFromSmarts("[C,c]O[H]")
 coo = Chem.MolFromSmarts("[C,c]C(=O)O")
