@@ -1,4 +1,0 @@
-CA,GLY
-C,GLY
-blank,GLY
-O,GLY

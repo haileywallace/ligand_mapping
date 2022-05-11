@@ -1,3 +1,0 @@
-H,ALA
-N,ALA
-CA,ALA

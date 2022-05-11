@@ -1,4 +1,0 @@
-CA,PRO
-C,PRO
-blank,PRO
-O,PRO

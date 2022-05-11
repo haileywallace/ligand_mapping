@@ -1,3 +1,0 @@
-H,LYS
-N,LYS
-CA,LYS

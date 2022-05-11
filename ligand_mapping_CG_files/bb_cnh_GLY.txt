@@ -1,3 +1,0 @@
-H,GLY
-N,GLY
-CA,GLY

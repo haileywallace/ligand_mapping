@@ -1,4 +1,0 @@
-HG,SER
-OG,SER
-CB,SER
-CA,SER

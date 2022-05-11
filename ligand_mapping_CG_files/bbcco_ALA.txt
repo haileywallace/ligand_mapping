@@ -1,4 +1,0 @@
-CA,ALA
-C,ALA
-blank,ALA
-O,ALA
