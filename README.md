@@ -49,7 +49,7 @@ The default output for this script is a mapped ligand file named 'ligand.txt'
 that can be input into COMBS2. To change the name of this output file, 
 implement the --output option and enter a different filename. 
 If you wish to output images of your ligand with the CGs highlighted, 
-specify the --image option. Specifying the --help option will 
+specify the --image option. Specifying nothing  will 
 produce the following:
 ```
 *********************************************************
@@ -62,9 +62,6 @@ produce the following:
 *     --ouput, -o: output name for ligand.txt file      *
 *                   "ligand.txt" if not specified;      *
 *                    "none" for no ligand.txt file      *
-*     --coords, -c: output coordinate file              *
-*                   "none" for no coords/ligand file;   *
-*                   will only output number of matches  *
 *     --image, -i: ouputs png images with               *
 *                   highlighted functional groups       *
 *                                                       *
@@ -73,6 +70,6 @@ produce the following:
 
 Example commandline input: 
 ```
-python ligand_matcher.py -l 3fv2_ligand.pdb -o example_ligand.txt
+python ligand_matcher.py -l 3fv2_ligand.pdb -o 3fv2_ligand.txt
 ```
 
