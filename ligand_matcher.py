@@ -29,7 +29,7 @@ scriptdir = os.path.abspath(os.path.dirname(sys.argv[0]))
 # Parser and commandline options
 parser = argparse.ArgumentParser()
 parser.add_argument('--ligand', '-l', type=str, required=True)
-parser.add_argument('--coords', '-c', type=str, required=False)
+parser.add_argument('--coords', '-c', type=str, required=False) # update to remove option
 parser.add_argument('--output', '-o', type=str, required=False)
 parser.add_argument('--image', '-i', type=str, required=False, default=False)
 
@@ -89,7 +89,7 @@ coh = Chem.MolFromSmarts("[C,c,N,n]O[H]")
 coo = Chem.MolFromSmarts("[*][C,c](=O)O")
 csc = Chem.MolFromSmarts("[cH2,CH2]S[CH3]")
 csh = Chem.MolFromSmarts("[C,c][S][H]")
-gn = Chem.MolFromSmarts("C(=[NH1,NH2])([NH2,NH1,NH3])[NH1][C,c]") # fix string
+gn = Chem.MolFromSmarts("C(=[NH1,NH2])([NH2,NH1,NH3])[NH1][C,c]")
 hid = Chem.MolFromSmarts("[CH,cH]1[N,n][CH,cH][NH,nH][C,c]1")
 hie = Chem.MolFromSmarts("[CH,cH]1[NH,nH][CH,cH][N,n][C,c]1")
 hip = Chem.MolFromSmarts("[CH,cH]1[NH,nH][CH,cH][NH,nH][C,c]1")
@@ -119,7 +119,7 @@ file = Chem.MolFromPDBFile(input, removeHs=False)
 ligand = Chem.MolToSmarts(file)
 try:
   #print("Ligand SMARTS pattern:", ligand)
-  print("\n","Find COMBS groups in ligand...")
+  print("\n","Finding COMBS groups in ligand...")
 except NameError:
   print("PDB is not defined")
 

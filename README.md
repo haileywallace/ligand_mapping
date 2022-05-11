@@ -1,6 +1,6 @@
 # Ligand Mapping 
 ## Hailey Wallace 
-Version 1.0 - October 25, 2021
+Version 2.0 - May 10, 2022
 
  This project contains the ongoing development of a COMBS2-compatible application 
  that will automatically map out COMBS2 functional groups (CG). The output is a 
@@ -21,25 +21,14 @@ Keep this application up-to-date with:
 ```
 git pull https://github.com/haileywallace/ligand_mapping.git
 ```
- 
-If COMBS is already installed on your machine, activate the env_combs_(platform).yml 
-environment while using this package. 
 
-If you are running this by itself for benchmarking purposes, install and 
-activate an RDKit environment. RDKit instructions from [here](https://www.rdkit.org/docs/Install.html) are copied  below:
-
-Command to create a new environment with RDKit installed:
+All of the required packages should be in the included environment. To activate this environment, type:
 ```
-conda create -c conda-forge -n my-rdkit-env rdkit
+conda env create -f ligand_map.yml 
 ```
-To activate this environment:
+To activate this environment, type:
 ```
-conda activate my-rdkit-env
-```
-
-Make sure that you have ipython installed. To install:
-```
-pip install ipython
+conda activate ligand_map
 ```
 
 Running this ligand_mapping python script requires an input PDB ligand. 
