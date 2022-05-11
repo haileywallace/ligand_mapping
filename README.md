@@ -22,7 +22,7 @@ Keep this application up-to-date with:
 git pull https://github.com/haileywallace/ligand_mapping.git
 ```
 
-All of the required packages should be in the included environment. To activate this environment, type:
+All of the required packages should be in the included environment. To create this environment, type:
 ```
 conda env create -f ligand_map.yml 
 ```
@@ -33,7 +33,7 @@ conda activate ligand_map
 
 Running this ligand_mapping python script requires an input PDB ligand. 
 This ligand PDB must not have the receptor protein attached. There is an example
-in the 'examples' directory.
+of this in the 'example' directory.
 The default output for this script is a mapped ligand file named 'ligand.txt'
 that can be input into COMBS2. To change the name of this output file, 
 implement the --output option and enter a different filename. 
