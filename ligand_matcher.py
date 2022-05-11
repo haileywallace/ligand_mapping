@@ -753,7 +753,7 @@ h.close()
 ################################################################################
 
 if args.output == None:
-    with open('ligand.txt', 'w') as final_file:
+    with open('out3.txt', 'w') as final_file:
         with open('out.txt') as myfile:
             for line in myfile:
                 if line == '\n':
@@ -778,7 +778,7 @@ if args.output == None:
 
 else:
     file = str(args.output)
-    with open(file, 'w') as file_unique:
+    with open('out3.txt', 'w') as file_unique:
         with open('out.txt') as myfile2:
             for line in myfile2:
                 if line == '\n':
@@ -800,6 +800,14 @@ else:
                                 print(final_line, file=file_unique)
         myfile2.close()
     file_unique.close()
+
+    with open ('out3.txt', 'r') as i, open (file, 'w') as respace:
+        for line in i:
+            respace.write(re.sub('[\t ]+',' ', line))
+
+with open ('out3.txt', 'r') as i, open ('ligand.txt', 'w') as respace:
+    for line in i:
+        respace.write(re.sub('[\t ]+',' ', line))
 
 os.remove("ligand_CG_coords.txt")
 os.remove("out.txt")
